@@ -15,6 +15,25 @@ def evaluate_model(y_true, y_pred) -> Dict[str, float]:
     return {"mae": float(mae), "mse": mse, "rmse": rmse, "r2": float(r2)}
 
 
+def accuracy_within_threshold(y_true, y_pred, threshold_pct: float = 0.10) -> float:
+    """Return the percentage of predictions within a given relative error threshold.
+
+    Args:
+        y_true: Actual target values.
+        y_pred: Predicted target values.
+        threshold_pct: Relative threshold as a fraction of the true value (e.g. 0.10 for 10%).
+
+    Returns:
+        Percentage of predictions within the threshold.
+    """
+    y_true = np.array(y_true, dtype=float)
+    y_pred = np.array(y_pred, dtype=float)
+    errors = np.abs(y_pred - y_true)
+    tolerance = np.abs(y_true) * threshold_pct
+    within = errors <= tolerance
+    return float(np.mean(within) * 100.0)
+
+
 def train_baselines(X_train, X_test, y_train, y_test) -> Tuple[Dict, Dict, object]:
     """Train baseline models and return their metrics and best model by RMSE.
 
