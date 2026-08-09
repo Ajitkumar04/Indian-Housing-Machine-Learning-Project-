@@ -146,7 +146,27 @@ This starts:
 - `api` on port `8000`
 - `streamlit` on port `8501`
 
-## 📅 Implementation Plan
+## � Model Evaluation Metrics
+
+The project tracks the following regression metrics:
+
+- **MAE**: Mean Absolute Error — average absolute difference between predicted and actual prices.
+- **MSE**: Mean Squared Error — average squared difference between predicted and actual prices.
+- **RMSE**: Root Mean Squared Error — the square root of MSE, in the same units as the target.
+- **R²**: Coefficient of Determination — fraction of variance explained by the model.
+
+Use the evaluation helper from `src/modeling.py`:
+
+```python
+from indian_housing.src.modeling import evaluate_model
+
+metrics = evaluate_model(y_test, y_pred)
+print(metrics)
+```
+
+The result includes `mae`, `mse`, `rmse`, and `r2`.
+
+## �📅 Implementation Plan
 
 See [Implementation-plan.md](Implementation-plan.md) for the full phase-wise breakdown:
 

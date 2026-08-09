@@ -9,9 +9,10 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 def evaluate_model(y_true, y_pred) -> Dict[str, float]:
     mae = mean_absolute_error(y_true, y_pred)
-    rmse = float(np.sqrt(mean_squared_error(y_true, y_pred)))
+    mse = float(mean_squared_error(y_true, y_pred))
+    rmse = float(np.sqrt(mse))
     r2 = r2_score(y_true, y_pred)
-    return {"mae": float(mae), "rmse": rmse, "r2": float(r2)}
+    return {"mae": float(mae), "mse": mse, "rmse": rmse, "r2": float(r2)}
 
 
 def train_baselines(X_train, X_test, y_train, y_test) -> Tuple[Dict, Dict, object]:
